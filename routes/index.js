@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var book = require("../models").Book;
+var Book = require("../models").Book;
 
 function asyncHandler(cb) {
   return async(req, res, next) => {
@@ -14,9 +14,8 @@ function asyncHandler(cb) {
 
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res) => {
-  // res.render('index', { title: 'Express' });
   const books = await Book.findAll();
-  console.log(books.toJSON());
+  console.log(book.toJSON());
   res.render('index', { books, title: "app" });
 }));
 

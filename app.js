@@ -12,9 +12,16 @@ var book = require("./models/index");
 var app = express();
 
 // databa connection
-let sequelize = require('./models').sequelize;
-
-
+let db = require('./models').sequelize;
+//connects and syncs the db
+(async () => {
+  try {
+    await db.authenticate();
+    console.log("Success connecting to the database...");
+  } catch (error) {
+    console.log("Error authenticating: ", error);
+  }
+})();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,8 +51,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
 
 
 module.exports = app;
